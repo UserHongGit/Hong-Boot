@@ -1,0 +1,53 @@
+1、Flyway快速上手教程:
+https://www.cnblogs.com/Ning-Blog/p/15425572.html
+
+2、Flyway快速上手教程:
+https://www.jianshu.com/p/567a8a161641
+
+
+
+
+Hong:
+Flyway:
+    sql版本管理, 项目启动执行sql文件, flyway也有插件使用, 可以去看看
+Actable:
+    根据java实体类, 生成表数据
+
+
+Flyway:
+- 如果是R_xxx.sql都会执行, 但是flyway_schema_history里version字段会为空了, 而且只执行一次
+- 必须是以R_xx.sql, 以R开头的会执行, 其他比如: L__xxx.sql, xx__test.sql, 这些都不会执行
+- 如果你改了以R开头的R_xxx.sql的内容, 他会再执行一次, flyway_schema_history的installed_rank会加一
+
+- 如果你改V__xxx.sql的内容, 项目会启动不起来, 即使是最新的版本, V最新__xxx.sql的内容, 也会启动不起来
+- 即使再建立一个文件夹, 用同版文件, 内容不一样, 还是启动不来
+    resource
+        -V3__test_add_v3user.sql
+        -test文件夹
+            -V3__test_add_v3user.sql
+    这样启动不起来
+- 当前最新是V4, 跳过V5, 直接建一个V6__xx.sql, 回过头再去补一个V5__xxx.sql, 是启动不起来的, 必须是大于6的, 哪怕是V6.1
+- 当前最新是V6,
+    - 新建V6.1 成功
+    - 新建V6.5 成功
+    - 新建V6.4 失败   好像有时候, 程序可以启动起来, 但是小版本的sql不会执行
+    - 新建V6.1-0 失败, 我猜是V6.1-0 等于V6.1
+    - 新建V6.1-1 成功, 在数据库里V6.1-0会变成6.1.1
+
+    - 升级到V7, 新建V7  成功
+    - 新建V6.8 失败
+- 总结就是, 版本数字要越来越大, 同版本的可以建立小数点版本号, 比如当前是V7, 可以建立V7.1 V7.2....然后可以继续建, V7.2.1 .....
+    比如:
+        1
+        2
+        3
+        4
+        6
+        6.1
+        6.1.1
+        6.1.2
+        6.1.6
+        6.1.6.1
+        6.8
+        7
+
