@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.153.128:3306/actable?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: jia
+
+server:
+  port: 8080
+
+actable:
+  table:
+    auto: update
+  model:
+    pack: com.xkcoding.class2table.entity
+  database:
+    type: mysql
