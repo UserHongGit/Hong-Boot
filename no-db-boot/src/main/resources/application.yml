@@ -1,0 +1,6 @@
+logging:
+  level:
+    com.hong.feign: DEBUG
+feign:
+  httpclient:
+    enabled: true
