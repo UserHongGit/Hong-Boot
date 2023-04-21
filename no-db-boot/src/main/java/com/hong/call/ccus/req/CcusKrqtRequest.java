@@ -1,6 +1,6 @@
 package com.hong.call.ccus.req;
 
-import com.hong.bo.Krqt;
+import com.hong.entity.po.Krqt;
 import com.hong.call.ccus.CcusBaseHead;
 import com.hong.call.ccus.CcusUrl;
 import lombok.Data;

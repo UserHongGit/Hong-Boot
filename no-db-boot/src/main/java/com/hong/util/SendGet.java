@@ -13,30 +13,27 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.zip.GZIPInputStream;
 
 public class SendGet {
     public static String sendJsonByGetReq(String url,String param,String encoding)throws  Exception{
         String body = "";
         CloseableHttpClient client = HttpClients.createDefault();
         HttpGetWithEntity myGet = new HttpGetWithEntity(url);
+        //String tmp = "{ \"head\": {\"password\":\"Sczh!2021\",\"username\":\"sczh\"} }";
         HttpEntity httpEntity = new StringEntity(param, ContentType.APPLICATION_JSON);
 
         myGet.setEntity(httpEntity);
-        myGet.setHeader("Content-Type","application/json;charset=UTF-8");
+        myGet.setHeader("Content-Type","application/json");
+        myGet.setHeader("Accept","*/*");
+        myGet.setHeader("Accept-Encoding","gzip, deflate, br");
+        myGet.setHeader("Connection","keep-alive");
 
         CloseableHttpResponse response = client.execute(myGet);
         HttpEntity entity = response.getEntity();
 
         if(entity!= null){
-            InputStream inputStream = entity.getContent();
-            GZIPInputStream gzipStream = new GZIPInputStream(inputStream);
-            String data = IOUtils.toString(gzipStream,"utf-8");
-            System.out.println("GZIP解压 , 接收到的参数 >>>> "+ data);
-            //body = EntityUtils.toString(entity,encoding);
-            //body = EntityUtils.toString(new GzipDecompressingEntity(response.getEntity()),encoding);
+            body = EntityUtils.toString(entity,encoding);
+            System.out.println("直接接收到的数据:"+body);
         }
         response.close();
         return body;

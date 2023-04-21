@@ -15,9 +15,9 @@ import lombok.*;
 @ToString
 public class CcusBaseHead {
     @Builder.Default
-    private String username = "Sczh!2021333";
+    private String username = "sczh";
     @Builder.Default
-    private String password = "sczh";
+    private String password = "Sczh!2021";
 
     @JsonProperty(value = "sbbm.s")
     @JSONField(name = "sbbm.s")

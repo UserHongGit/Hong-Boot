@@ -4,3 +4,5 @@ logging:
 feign:
   httpclient:
     enabled: true
+server:
+  port: 8888

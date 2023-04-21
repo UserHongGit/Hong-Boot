@@ -65,7 +65,7 @@ public class HelloController {
 
         Map map = new HashMap();
         Map header = new HashMap();
-        header.put("password","Sczh!2021333");
+        header.put("password","Sczh!2021");
         header.put("username","sczh");
         map.put("header",header);
 
@@ -86,12 +86,12 @@ public class HelloController {
 
         System.out.println(exchange.getBody());
 
-        //HttpHeaders headers = new HttpHeaders();
-        //headers.setContentType(MediaType.APPLICATION_JSON);
-        //HttpEntity<String> httpEntity = new HttpEntity<>(JSON.toJSONString(jsonObject), headers);
-        //log.info("url:" + url + ",httpEntity:" + JSON.toJSONString(httpEntity));
-        //ResponseEntity<Object> response = restTemplate.exchange(domain+beng, HttpMethod.GET, httpEntity, Object.class);
-        //log.info("{}请求的返回内容:{}", url, JSON.parseObject(JSON.toJSONString(response.getBody())));
+        HttpHeaders head = new HttpHeaders();
+        head.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<>(JSON.toJSONString(map), headers);
+        log.info("url:" + url + ",httpEntity:" + JSON.toJSONString(entity));
+        ResponseEntity<Object> response = restTemplate.exchange(domain+beng, HttpMethod.GET, httpEntity, Object.class);
+        log.info("{}请求的返回内容:{}", url, JSON.parseObject(JSON.toJSONString(response.getBody())));
         return null;
     }
 
