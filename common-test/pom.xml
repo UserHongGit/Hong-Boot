@@ -38,6 +38,17 @@
             <artifactId>fastjson2</artifactId>
             <version>2.0.23</version>
         </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.4.5</version>
+        </dependency>
+<!--        为了测试线程池用法引入-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>5.1.2.RELEASE</version>
+        </dependency>
 
         <!--<dependency>
             <groupId>com.squareup.okhttp</groupId>
