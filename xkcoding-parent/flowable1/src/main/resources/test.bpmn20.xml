@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:flowable="http://flowable.org/bpmn"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://flowable.org/bpmn http://flowable.org/xsd/bpmn-flowable-2.0.xsd"
+             targetNamespace="http://www.flowable.org/processdef">
+  <process id="myProcess" name="My Process" isExecutable="true">
+    <startEvent id="startEvent" name="Start"></startEvent>
+    <userTask id="userTask" name="User Task" flowable:assignee="${assignee}">
+      <extensionElements>
+        <flowable:taskListener event="complete" class="org.flowable.engine.delegate.TaskListener">
+          <flowable:field name="name">
+            <flowable:string><![CDATA[User Task Completed]]></flowable:string>
+          </flowable:field>
+        </flowable:taskListener>
+      </extensionElements>
+    </userTask>
+    <serviceTask id="serviceTask" name="Service Task" flowable:delegateExpression="${myService}">
+      <extensionElements>
+        <flowable:field name="name">
+          <flowable:string><![CDATA[Service Task Completed]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <endEvent id="endEvent" name="End"></endEvent>
+    <sequenceFlow id="flow1" sourceRef="startEvent" targetRef="userTask"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="userTask" targetRef="serviceTask"></sequenceFlow>
+    <sequenceFlow id="flow3" sourceRef="serviceTask" targetRef="endEvent"></sequenceFlow>
+  </process>
+</definitions>

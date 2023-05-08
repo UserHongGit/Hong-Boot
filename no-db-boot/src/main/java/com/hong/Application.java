@@ -1,5 +1,8 @@
 package com.hong;
 
+import cn.hutool.cache.impl.TimedCache;
+import cn.hutool.core.date.DateUnit;
+import com.hong.util.Test;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -31,6 +34,16 @@ public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
+
+        TimedCache<String, String> timedCache = Test.timedCache;
+        String aa = timedCache.get("aa");
+        System.out.println("before -- "+aa);
+
+        timedCache.put("aa","bb", DateUnit.MINUTE.getMillis() * 50);
+
+        String aaa = timedCache.get("aa");
+        System.out.println("after -- "+aaa);
+
     }
 
 }
